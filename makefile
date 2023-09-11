@@ -10,7 +10,8 @@ format:
 	black mohasebeh_v1
 
 lint:
-	pylint --disable=R,C mohasebeh_v1
+	python3 -m pylint --disable=R,C mohasebeh_v1
+
 all: install lint test format
 
 run_env:
