@@ -1,0 +1,40 @@
+﻿{% extends 'orix/layout.html' %}
+{%block section%}
+
+<section>
+    <div class="container">
+        <div class="hading aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+            <p>صفحه ورود</p>
+            <h2>
+                با ورود در محاسبات ,
+                منظم بودن را شروع کنید!
+            </h2>
+        </div>
+        <div class="row">
+            <div class="offset-xl-1 col-xl-10 col-lg-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+                <div class="your-name contact aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+                    <form class="one" method="post" action="{{url_for('auth.login')}}">
+                        {%for messege in get_flashed_messages()%}
+                        <div class=" row  "alert alert-danger" role="alert">
+                            <p> {{messege}}</p>
+                        </div>
+                        {%endfor%}
+                        <input type="text" name="username" placeholder="نام کاربری   *">
+
+                        <div class="row">
+                            
+                            <div class="col-lg-6">
+                                <input type="text" name="password" placeholder="رمز*">
+                            </div>
+                        </div>
+                      
+                        <input value=ورود" type="submit" class="magic-hover magic-hover__square button button--moema button--text-thick button--text-upper button--size-s">ارسال فرم >
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="contact-map aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2689446.104646556!2d28.705460424349365!3d48.83127549941125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d1d9c154700e8f%3A0x1068488f64010!2sUkraine!5e0!3m2!1sen!2s!4v1661009847728!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</section>{%endblock%}

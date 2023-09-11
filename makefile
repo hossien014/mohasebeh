@@ -1,18 +1,22 @@
 install: 
-	python3 -m pip install --upgrade pip&&\
-		python3 -m pip install -r requiremnts.txt
+	pip install --upgrade pip&&\
+		pip install -r requiremnts.txt
 
 test:
-	python3 -m pytest -vv 
+	coverage run -m pytest&&\
+	coverage report
 
 format:
-	python3 -m black *.py
+	black mohasebeh_v1
 
 lint:
-	pylint --disable=R,C *.py
+	pylint --disable=R,C mohasebeh_v1
 all: install lint test format
 
 run_env:
 	source .venv/Scripts/activate
 	
+runflask:
+	flask --app mohasebeh_v1 run --debug
+
 

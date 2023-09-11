@@ -6,7 +6,7 @@ build-backend = "flit_core.buildapi"
 
 # مشخصات پروژه 
 [project]
-name = "mohasebeh"
+name = "mohasebeh_v1"
 version = "0.0.1"
 authors = [
   { name="hossien_solymany", email="hossien014@gmail.com" },
@@ -21,11 +21,31 @@ classifiers = [
 ]
 # وابستگی ها
 dependencies = [
-  "httpx",
+  "Flask",
   "gidgethub[httpx]>4.0.0",
-  "django>2.1; os_name != 'nt'",
-  "django>2.0; os_name == 'nt'",
+  "pytest==7.4.2; os_name != 'nt'",
+  "pylint==2.17.5; os_name == 'nt'",
+  "black==23.9.0",
 ]
 #صفحات مجازی 
 [project.urls]
 "github_page" = "https://github.com/hossien014"
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.flit.module]
+name = "mohasebeh_v1"
+
+[tool.flit.sdist]
+include = [
+    "tests/",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+branch = true
+source = ["mohasebeh_v1", "tests"]
