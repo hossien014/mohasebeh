@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           make install
-          g
+          
       - name: initialize database
         run: |
           make init-db
