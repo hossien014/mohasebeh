@@ -2,6 +2,8 @@ install:
 	pip install --upgrade pip&&\
 		pip install -r requiremnts.txt
 
+install-pg:
+	pip install -e .
 test:
 	coverage run -m pytest&&\
 	coverage report

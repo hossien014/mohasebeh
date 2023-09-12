@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\templates\\orix",
+    "\\templates",
+    "\\templates\\auth",
     "\\__pycache__"
   ],
-  "SelectedNode": "\\auth.py",
+  "SelectedNode": "\\templates\\auth\\login.html",
   "PreviewInSolutionExplorer": false
 }
