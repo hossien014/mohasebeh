@@ -5,8 +5,8 @@ install:
 install-pg:
 	pip install -e .
 test:
-	coverage run -m pytest&&\
-	coverage report
+	coverage run -m pytest
+	
 
 format:
 	black mohasebeh_v1
