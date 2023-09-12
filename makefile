@@ -4,6 +4,7 @@ install:
 
 install-pg:
 	pip install -e .
+
 test:
 	coverage run -m pytest&&\
 	coverage report 
@@ -22,8 +23,11 @@ all: install lint test format
 
 run_env:
 	source .venv/Scripts/activate
+
+init-db:
+	flask --app mohasebeh_v1 init-db
 	
-runflask:
+run-flask:
 	flask --app mohasebeh_v1 run --debug
 
 
