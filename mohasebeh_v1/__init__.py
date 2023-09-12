@@ -10,7 +10,10 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, "mohasbat.sqlite"),
     )
     if not test_config:
-        app.config.from_pyfile("config.py")
+        try:
+            app.config.from_pyfile("config.py")
+        except FileNotFoundError as e:
+            print(f"you have to make P{e.filename}")
     else:
         app.config.update(test_config)
     try:
