@@ -5,7 +5,11 @@ install:
 install-pg:
 	pip install -e .
 test:
-	coverage run -m pytest
+	coverage run -m pytest&&\
+	coverage report 
+
+test-2:
+	python3 -m pytest -vv
 	
 
 format:

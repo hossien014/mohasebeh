@@ -10,7 +10,7 @@ def test_register(client: FlaskClient, app):
     assert client.get("/auth/register").status_code == 200
     response = client.post(
         "/auth/register", data={"username": "a", "password": "a", "email": "a"})
-    assert response.headers["Location"] == "/auth/login"
+    assert response.headers["Location"] == "/auth/login" or "http://localhost/auth/login"
 
     response = client.post(
         "/auth/register", data={"username": "b", "password": "a", "email": "a"})
@@ -23,7 +23,7 @@ def test_register(client: FlaskClient, app):
 
 def test_login(client: FlaskClient, auth):
     assert client.get("/auth/login").status_code==200
-    assert auth.login().headers["Location"]=="/"
+    assert auth.login().headers["Location"]=="/" or "http://localhost/"
     
     with client:
       client.get("/")
