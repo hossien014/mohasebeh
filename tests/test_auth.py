@@ -35,16 +35,17 @@ def test_login(client: FlaskClient, auth):
 @pytest.mark.parametrize(
       ("username","password","email","message"),
       (
-            ("a","","aaaca",b"invalid user password"),
-            ("","ccca","aacassa",b"invalid user name"),
+            ("user","","email",b"invalid user password"),
+            ("","pass","email",b"invalid user name"),
+            ("user","pass","",b"invalid user email"),
       ),
 )
 def test_invalid_register(client:FlaskClient,username,password,email,message):
       
       r=client.post("/auth/register",data={"username":username,"password":password,"email":email})
       assert message in r.data
-      
-      
+
+
 @pytest.mark.parametrize(("username","password","message")
                         , (
                             ("test","",singleton.incorrect_password.encode("utf-8")) ,
@@ -55,7 +56,12 @@ def test_invalid_register(client:FlaskClient,username,password,email,message):
                         )      
 def test_invaild_login(client:FlaskClient,username,password,message):
       
-      r=client.post("/auth/login",
-      data={"username":username ,"password":password})
+      r=client.post("/auth/login",data={"username":username ,"password":password})
       assert message in r.data
       
+#تست سِشن ها      
+def test_sessions(client:FlaskClient,auth,app):
+    auth.login()
+    with client.session_transaction() as sess:
+        assert sess["user"]=="test"
+  

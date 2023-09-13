@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [mac-latest,windows-latest,ubuntu-latest]
+        os: [windows-latest,ubuntu-latest]
         python-version: ["3.8","3.9","3.11"]
 
     steps:
@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           make install
-          
+
       - name: initialize database
         run: |
           make init-db

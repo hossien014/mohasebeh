@@ -19,17 +19,16 @@ bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 
 def login_required(view):
-    """View decorator that redirects anonymous users to the login page."""
-
     @functools.wraps(view)
-    def wrapped_view(**kwargs):
+    def wraper(**kwargs):
         if g.user is None:
-            return redirect(url_for("auth.login"))
-
+            flash("برای استفاده از خدمات سایت باید از حساب کاربری خود استفاده کنید")
+            return redirect(url_for("auth.register"))
+        
         return view(**kwargs)
-
-    return wrapped_view
-
+    
+    return wraper
+        
 
 @bp.before_app_request
 def load_logged_in_user():

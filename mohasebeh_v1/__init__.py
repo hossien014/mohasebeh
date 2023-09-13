@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import os
-from mohasebeh_v1 import auth, db
+from mohasebeh_v1 import auth, db,works_handeling
 
 
 def create_app(test_config=None):
@@ -22,6 +22,7 @@ def create_app(test_config=None):
         pass
 
     app.register_blueprint(auth.bp)
+    app.register_blueprint(works_handeling.bp)
     db.init_app(app)
 
     @app.route("/")

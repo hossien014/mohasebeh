@@ -1,0 +1,73 @@
+﻿{% extends 'orix/layout.html' %}
+{%block section%}
+
+<section id="hossien 091699647549">
+    <div class="container">
+        <div class="hading aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+            <p>صفحه کار ها</p>
+            <h2>
+               ابتدا کار ها را تعریف کنید
+                &#9196;
+            </h2>
+        </div>
+        <div class="row">
+            <div class="offset-xl-1 col-xl-10 col-lg-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+                <div class="your-name contact aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+                    <form class="one" method="post" action="{{url_for('work.work')}}">
+                        {%for messege in get_flashed_messages()%}
+                        <div class=" row  "alert alert-danger" role="alert">
+                            <p> {{messege}}</p>
+                        </div>
+                        {%endfor%}
+                        <input type="text" name="work" placeholder="کار : مثلا قران خواندن-پیاده روی -کتاب خواند   *">
+
+                        <div class="row">
+                            
+                            <div class="col-lg-6">
+                                <input type="text" name="category" placeholder="دسته بندی :مثلا درسی یا ورزشی یا عبادتی*">
+                            </div>
+                        </div>
+                      
+                        <input value=اضافه کردن کار جدید" type="submit" class="magic-hover magic-hover__square button button--moema button--text-thick button--text-upper button--size-s">اضافه کردن این کار  >
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+</section>
+
+<section class="pricing-plans gap">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300" >
+						<div class="pricing-plans-tabla">
+							<div class="basic-package" style="background-image: url(./img/home-2.jpg)">
+								<h5>کار های شما </h5>
+								<h3>تست  <span>/ تست</span></h3>
+							</div>
+							<div class="rocket">
+								<span class="icon-rocket"></span>
+								<ul>
+                                    {% for work in works %}
+									<li><i class="fa-solid fa-check"></i>{{work["work"]}} 
+                                            <form method="post" action="{{url_for('work.delete_work')}}">
+                                                <input type="text" hidden name="work_to_delete" value="{{work["work"]}}" />
+                                                <input type="submit" value="حذف"  class="btn btn-danger" />
+                                            </form>
+                                    </li>
+                                    
+                                    {% endfor %}
+								</ul>
+								<a href="#" class="magic-hover magic-hover__square button download  button--moema button--text-thick button--text-upper button--size-s" style="transform: translate3d(0px, 0px, 0px);">Select Now</a>
+							</div>
+						</div>
+			</div>
+		
+	
+		</div>
+	</div>
+</section>
+
+{%endblock%}

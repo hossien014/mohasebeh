@@ -4,7 +4,7 @@ import click
 
 
 def get_db():
-    print("getting db")
+    
     if "db" not in g:
         # ساخت کانکشن به یک دیتا بیست و ذخیر کردن ان در متغیر گلوبال فلسک
         g.db = sqlite3.connect(
@@ -18,7 +18,6 @@ def get_db():
 
 def init_db():
     """با استفاده از فایل اسکیما جدول های اولیه را می سازد"""
-    print("init_db")
     db = get_db()
     with current_app.open_resource("schema.sql") as f:
         # حالا باید فایل را تبدیل به متن متن کنیم
@@ -28,7 +27,6 @@ def init_db():
 def close_db(e=None):
     """اگر در گلوبال دیتا بیسی وجود داشت ان را می بندد"""
 
-    print("close_db")
     db = g.pop("db", None)
     if db is not None:
         db.close()
@@ -42,6 +40,5 @@ def init_db_command():
 
 def init_app(app: Flask):
     # بعد از هر ریکوئست تیر داون اجرا می شود
-    print("init_app")
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)

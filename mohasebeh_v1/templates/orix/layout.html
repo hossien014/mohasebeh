@@ -114,6 +114,8 @@
                     <li class="menu-item-has-children">
                         {% if session['user'] %}
                        {{session['user']}} خوش امدی 
+                       {% else %}
+                       ابتدا وارد شوید
                         {% endif %}
                     </li>
                   <li class="menu-item-has-children">
@@ -192,7 +194,7 @@
 
                   
                   <li class="menu-item-has-children">
-                    <a class="magic-hover magic-hover__square" href="#">Blog</a>
+                    <a class="magic-hover magic-hover__square" href="{{url_for('work.work')}}">کار ها </a>
                     <ul>
                       <li>
                         <a
