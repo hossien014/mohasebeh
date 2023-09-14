@@ -42,6 +42,9 @@ def load_logged_in_user():
             .execute("SELECT * FROM users WHERE username = ?", (user_name,))
             .fetchone()
         )
+        if g.user is None:
+            session.clear()
+        
 
 
 @bp.route("/register", methods=["POST", "GET"])
@@ -68,7 +71,7 @@ def register():
                 password = generate_password_hash(password)
                 db.execute(
                     "INSERT INTO users (username,password,email)VALUES(?,?,?)",
-                    (username, password, email),
+                    (username.strip(), password, email),
                 )
                 db.commit()
             except db.IntegrityError:

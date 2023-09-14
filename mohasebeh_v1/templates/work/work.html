@@ -13,7 +13,7 @@
         <div class="row">
             <div class="offset-xl-1 col-xl-10 col-lg-12 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
                 <div class="your-name contact aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
-                    <form class="one" method="post" action="{{url_for('work.work')}}">
+                    <form class="one" method="post" action="{{url_for('work.add')}}">
                         {%for messege in get_flashed_messages()%}
                         <div class=" row  "alert alert-danger" role="alert">
                             <p> {{messege}}</p>
@@ -52,7 +52,7 @@
 								<ul>
                                     {% for work in works %}
 									<li><i class="fa-solid fa-check"></i>{{work["work"]}} 
-                                            <form method="post" action="{{url_for('work.delete_work')}}">
+                                            <form method="post" action="{{url_for('work.delete')}}">
                                                 <input type="text" hidden name="work_to_delete" value="{{work["work"]}}" />
                                                 <input type="submit" value="حذف"  class="btn btn-danger" />
                                             </form>

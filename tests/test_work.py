@@ -8,16 +8,18 @@ from conftest import AuthActions
 
 
 #تست رفتن به صفحه کار ها بدون ورود به سایت 
-def test_viste_work_without_login(client:FlaskClient):
+def test_viste_work_without_login(client:FlaskClient,app:Flask):
       r=client.get("/work/")
       assert r.status_code==302
       assert r.headers["Location"] =="/auth/register" or "http://localhost/auth/register"
+       
       
-def test_viste_work_with_login(client:FlaskClient,auth):
+      
+def test_viste_work_with_login(client:FlaskClient,auth:AuthActions):
       #تست ورود موفق
-      r_login=client.post("/auth/login",data={"username":"test","password":"test"})      
+      r_login=auth.login()    
       assert r_login.headers["Location"] =="/" or "http://localhost/"
-      
+            
       #بازدید از صفحه ورک در حال ورود
       r_viste_work_endpoit=client.get("/work/")
       assert r_viste_work_endpoit.status_code == 200
@@ -33,26 +35,25 @@ def test_viste_work_with_login(client:FlaskClient,auth):
 ),   
 )
 def test_add_invaid_work(client:FlaskClient,auth:AuthActions ,work,category,message): 
-       
-       
-      assert auth.login().headers["Location"] =="/" or "http://localhost/"
-      
-      r_add_invalid_work=client.post("/work/",data={ "work":work  , "category":category })
+      auth.login()
+      client.post("/work/add",data={ "work":"test"  , "category":"test" })
+      r_add_invalid_work=client.post("/work/add",data={ "work":work  , "category":category })
       assert r_add_invalid_work.status_code == 302
+      
       redirect_url = r_add_invalid_work.headers["Location"]
       r_after_redirect=client.get(redirect_url)
-      
       assert message in str(r_after_redirect.data)
 
-def test_add_vaild_work_andDelete(client:FlaskClient,auth:AuthActions,app:Flask):
+def test_add_vaild_work_Delete(client:FlaskClient,auth:AuthActions,app:Flask):
       
       auth.login().headers["Location"] =="/" #ورود به اکانت 
       #مدت زیادی سعی کردم به مسیر 
       # /work 
       #وصل شوم ولی این کار فقط به مسیر لوکال هاست ریدارکت می کند
-      work_url="http://localhost/work/" 
-      delete_work_url="http://localhost/work/delete-work" 
-      client.post(work_url,data={"work": "readbook", "category": "sport"})
+      add_work_url="http://localhost/work/add"
+      work_url="http://localhost/work/"
+      delete_work_url="http://localhost/work/delete" 
+      client.post(add_work_url,data={"work": "readbook", "category": "sport"})
       r_get_to_wrok_after_add_work=client.get(work_url)
       assert singleton.work_added in str(r_get_to_wrok_after_add_work.data)
       

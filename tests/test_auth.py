@@ -21,7 +21,7 @@ def test_register(client: FlaskClient, app):
         assert get_db().execute("SELECT * FROM users WHERE username='a'").fetchone() is not None
 
 
-def test_login(client: FlaskClient, auth):
+def test_login_logout(client: FlaskClient, auth):
     assert client.get("/auth/login").status_code==200
     assert auth.login().headers["Location"]=="/" or "http://localhost/"
     

@@ -6,6 +6,5 @@ VALUES
 
 INSERT INTO works(work,category,user_id)
 VALUES
-('test','test',1),
-('jump','test',2)
+('test','test',1)
 ;
