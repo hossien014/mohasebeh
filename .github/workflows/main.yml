@@ -1,17 +1,23 @@
 name: Python package
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest,ubuntu-latest]
-        python-version: ["3.8","3.9","3.11"]
+        os: [windows-latest, ubuntu-latest]
+        python-version: ["3.8", "3.9", "3.11"]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -22,11 +28,11 @@ jobs:
         run: |
           make install
 
-      - name: initialize database
+      - name: Initialize database
         run: |
           make init-db
 
-      - name: install mohasebat package
+      - name: Install mohasebat package
         run: |
           make install-pg
 
@@ -37,3 +43,9 @@ jobs:
       - name: Format code
         run: |
           make format
+
+      # This action is not specified in your original workflow, but add it if needed.
+      # - name: Update Node.js version for some other action
+      #   uses: actions/some-other-action@v1
+      #   with:
+      #     node-version: 16
