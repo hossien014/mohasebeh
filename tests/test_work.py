@@ -2,7 +2,7 @@ from flask import current_app,Flask,g,session
 import pytest
 import sqlite3
 from mohasebeh_v1.db import get_db
-from mohasebeh_v1 import singleton
+from mohasebeh_v1 import singleton,works_handeling
 from flask.testing import FlaskClient
 from conftest import AuthActions
 
@@ -68,3 +68,25 @@ def test_add_vaild_work_Delete(client:FlaskClient,auth:AuthActions,app:Flask):
             db=get_db()
             readbook_wrok=db.execute("SELECT * FROM works WHERE work ='readbook'").fetchone()
             assert readbook_wrok is  None
+
+
+@pytest.mark.parametrize(
+("minute","expact_dict"),
+(
+      (120,{"h":2,"m":0}),
+      (150,{"h":2,"m":30}),
+      (12,{"h":0,"m":12}),
+)   
+)
+def test_convert_minute_to_hour(minute,expact_dict):
+      a=works_handeling.convert_minute_to_hour(minute) 
+      assert a==expact_dict
+      
+def test_insert_work_to_sql(app:Flask):
+      
+      with app.app_context():
+            works_handeling.insert_work_to_sql("1","qran")
+            db=get_db()
+            a=db.execute("SELECT work FROM works WHERE work ='qran'").fetchone()
+            assert a["work"]== "qran"
+      

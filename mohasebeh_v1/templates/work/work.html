@@ -2,7 +2,80 @@
 {%block section%}
 
 <section id="hossien 091699647549">
-    <div class="container">
+    <div class="container" dir="rtl">
+        <div style="border:dashed ;block-size:auto">
+
+            <H2 style="margin:7PX"> امار کار های هفتگی</H2>
+            <form>
+                <input type="date" name="start_date"  /> از 
+                <input type="date" name="end_date" /> تا
+                <input type="submit" value="رفتن به این تاریخ" />
+            </form>
+
+            <form method="get" >
+                <input type="hidden" name="date" value="{{today_j}}" /> {{today_j}}
+                <input type="submit" value="رفتن به تاریخ امروز" />
+            </form>
+
+            <p> شرح کار های شما در هفته اخیر :</p>
+            <div class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                    {%for key , value in work_time_dict_week.items()%}
+
+                    <li class="list-group-item"> {{key}} : {{value["h"]}} ساعت  و {{value["m"]}} دقیقه</li>
+                    {% endfor%}
+                </ul>
+                
+
+            </div>
+        </div>
+
+
+
+<div class="container" dir="rtl">
+        <div style="border:dashed ;block-size:auto">
+
+            <H2 style="margin:7PX"> امار کار های کلی</H2>
+            <form>
+                <input type="date" name="start_date"  /> از 
+                <input type="date" name="end_date" /> تا
+                <input type="submit" value="رفتن به این تاریخ" />
+            </form>
+
+            <form method="get" >
+                <input type="hidden" name="date" value="{{today_j}}" /> {{today_j}}
+                <input type="submit" value="رفتن به تاریخ امروز" />
+            </form>
+
+            <p> شرح کار های شما در کل  :</p>
+            <div class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                    {%for key , value in work_time_dict_full.items()%}
+
+                    <li class="list-group-item"> {{key}} : {{value["h"]}} ساعت  و {{value["m"]}} دقیقه</li>
+                    {% endfor%}
+                </ul>
+                
+
+            </div>
+        </div>
+
+
+
+         <div class="leave aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
+            <h2 class="btn btn-info"> امروز {{today_j}} شمسی مطابق با {{today_m}} میلادی</h2>
+            <h2 > فعالیت های امروز را بنویسید</h2>
+               {% for messege in get_flashed_messages()%}
+                <p class="btn btn-danger">{{messege}} </p>
+            {% endfor %}
+            <form class="one" action="{{url_for('work.add_daily')}}" method="post">
+                <textarea name="daily_works" placeholder="کار ها را بنوسید و زمان انجام را مانند مثال رو به رو پر کنید مثلا   ورزش=2:12-قران=0:45 "></textarea>
+                <input type="submit" class="magic-hover magic-hover__square button button--moema button--text-thick button--text-upper button--size-s" style="transform: translate3d(0px, 0px, 0px);">Post Comment</input>
+         
+            </form>
+        </div>
+
+
         <div class="hading aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
             <p>صفحه کار ها</p>
             <h2>
@@ -30,12 +103,22 @@
                       
                         <input value=اضافه کردن کار جدید" type="submit" class="magic-hover magic-hover__square button button--moema button--text-thick button--text-upper button--size-s">اضافه کردن این کار  >
                     </form>
+                    <ul style="margin:10px ">
+                        {% for work in works %}
+                        <li class="btn btn-primary" style="margin:5px">
+                            {{work["work"]}} 
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
             
         </div>
-        
+       
     </div>
+
+
+
 </section>
 
 <section class="pricing-plans gap">
@@ -45,7 +128,7 @@
 						<div class="pricing-plans-tabla">
 							<div class="basic-package" style="background-image: url(./img/home-2.jpg)">
 								<h5>کار های شما </h5>
-								<h3>تست  <span>/ تست</span></h3>
+								<h3>تست  <span>/ حذف کار ها</span></h3>
 							</div>
 							<div class="rocket">
 								<span class="icon-rocket"></span>

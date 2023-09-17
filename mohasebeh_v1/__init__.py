@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import os
-from mohasebeh_v1 import auth, db,works_handeling
+from mohasebeh_v1 import auth, db,works_handeling,home
 
 
 def create_app(test_config=None):
@@ -21,12 +21,17 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    db.init_app(app)
+    
     app.register_blueprint(auth.bp)
     app.register_blueprint(works_handeling.bp)
-    db.init_app(app)
+    app.register_blueprint(home.bp)
 
-    @app.route("/")
-    def index():
-        return render_template("home.html", pagetitle="صفحه اصلی ")
+    
+    app.add_url_rule("/",endpoint="index")
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('404.html'), 404
 
     return app

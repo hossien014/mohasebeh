@@ -17,12 +17,13 @@ id INTEGER PRIMARY KEY AUTOINCREMENT
 ,category TEXT NOT NULL 
 ,user_id INTEGER FOREIGNKEY REFERENCES users(id) NOT NULL
 );
-
+--"SELECT works.work,work_perday.work_time_minute FROM works INNER JOIN work_perday ON work_perday.work_id =works.id "
 CREATE TABLE work_perday(
 id INTEGER PRIMARY KEY AUTOINCREMENT
 ,day_ DATE  NOT NULL 
 ,work_id INTEGER FOREIGNKEY REFERENCES works(id)
 ,work_time_minute INTEGER NOT NULL  
+,user_id INTEGER FOREIGNKEY REFERENCES users(id) NOT NULL
 );
 
 INSERT INTO users(username,password,email)
